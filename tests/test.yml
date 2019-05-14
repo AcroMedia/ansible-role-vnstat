@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - acromedia.vnstat
+    - ansible-role-vnstat
