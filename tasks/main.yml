@@ -1,0 +1,18 @@
+---
+- name: Install vnstat to collect stats on system bandwidth
+  package:
+    - name: vnstat
+      state: present
+      update_cache: true
+
+- name: Create the initial database for vnstat
+  shell: >
+    /usr/bin/vnstat -u -i {{ ansible_default_ipv4.interface }}
+  creates: /var/lib/vnstat/{{ ansible_default_ipv4.interface }}
+  when: ansible_os_family == 'RedHat'
+
+- name: Start and enable the vnstat service at boot
+  service:
+    name: vnstat
+    state: started
+    enabled: true
