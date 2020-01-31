@@ -1,0 +1,4 @@
+---
+package_source: 'https://humdi.net/vnstat/vnstat-latest.tar.gz'
+home_directory: "/root"
+download_dest: "{{ (home_directory | length > 0) | ternary(home_directory, '/root') }}/vnstat-latest.tar.gz"

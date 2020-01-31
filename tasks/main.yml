@@ -1,4 +1,29 @@
 ---
+- debug:
+    msg:
+    - "ansible_os_family:                     {{ ansible_os_family }}"
+    - "ansible_distribution:                  {{ ansible_distribution }}"
+    - "ansible_distribution_major_version:    {{ ansible_distribution_major_version }}"
+
+# @todo : Centos-8 has issues installing vnstat
+#- name: Include distribution-specific tasks (if they exist)
+#  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+#  when: ansible_distribution == 'CentOS'
+#    and ansible_distribution_major_version == '8'
+#
+#- name: Include OS-family-specific variables
+#  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+#  when: ansible_distribution == 'CentOS'
+#    and ansible_distribution_major_version == '8'
+
+- name: Download vnstat
+  get_url:
+   # These come from vars/{ansible_distribution}-{ansible_distribution_major_version}.yml
+    url: "{{ package_source }}"
+    dest: "{{ download_dest }}"
+  when: ansible_distribution == 'CentOS'
+    and ansible_distribution_major_version == '8'
+
 - name: Install vnstat to collect stats on system bandwidth
   package:
     name: vnstat

@@ -1,0 +1,15 @@
+#---
+#- name: Install wget for CentOS 8 vnstat download
+#  yum:
+#    name:
+#    - make
+#    - gcc
+#    - gd
+#    - sqlite
+#    - check
+#    - pkg-config
+#    state: present
+#    update_cache: yes
+
+
+#./configure --prefix=/usr --sysconfdir=/etc && make && make install
